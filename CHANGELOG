@@ -1,0 +1,23 @@
+0.12	First version hosted on Rforge.
+0.13	Stem and branch sections are now plotted as cylinder sections in plot.plant3d. Other small bug changes.
+0.2-1	Multiple leaf types now supported.
+0.2-2	Fixed bug with Q files
+0.2-3	Bug fixes related to multiple leaf types.
+0.2-4	Bug fix in DAPA.R
+0.2-5	Minor improvements to constructplant() and readl(). (Rare) bug (?) with pathlen() is now safe (but not fixed).
+0.2-6	Crown projected area added to summary.plant3d(). 
+0.2-7	Added randomplant, utility to construct geometric shapes with randomly placed leaves. Minor help edits.
+0.2-8 Revamp of zenaz (all native R to avoid rare memory leak with Fortran routines)
+0.2-9 Minor fixes
+0.2-10 Minor fixes
+0.2-11 Bug fixes in randomplant.R, and makeQMCinput (when no P file exists).
+0.2-12 Added support for Mac OS X 10.8
+0.2-13 Added option to summary.yplantsimlist.R
+0.2-14 Bug fix in makereport.R (crash on providing filename)
+0.2-15 Significant speed improvement to makeQMCinput()
+0.3-1 (Incomplete) support for stand3d objects
+0.3-2 change default for readplantlist, doc updates.
+0.3-3 Fixed cylinder stem bug in plot.plant3d()
+0.3-4 Minor updates to stand3d support.
+0.4 First version hosted on CRAN.
+0.5 Support for stand3d objects.
