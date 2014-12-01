@@ -1,6 +1,141 @@
-
+#'A single simulation of YplantQMC
+#'
+#'@description Runs the YplantQMC model for one timestep. Runs the QuasiMC raytracer to
+#'estimate absorbed PAR for every leaf on the plant, given diffuse and direct
+#'radiation (set by \code{fbeam}, see below), the position of the sun, and
+#'reflectance and transmittance of the foliage material.
+#'
+#'Required is a 3D plant object (see \code{\link{constructplant}}). Optionally,
+#'a leaf gas exchange model is used (not needed if only light absorption is
+#'calculated) to calculate photosynthesis (and optionally, transpiration rate).
+#'Also optionally, a hemiphoto object is used to calculate shading by the
+#'overstorey canopy.
+#'
+#'Output is not as easy to use as the more user-friendly
+#'\code{\link{YplantDay}}. If you are only interested in diurnal simulations
+#'(and plant totals by timestep), use that function. The \code{runYplant}
+#'function is available for programming purposes (and more advanced custom
+#'simulations).
+#'
+#'
+#'The arguments \code{intern}, \code{debug}, \code{delfiles} and
+#'\code{rewriteplantfile} should not be set by the user, unless you really know
+#'what you are doing. These arguments exist for testing, and are used by
+#'\code{YplantDay}.
+#'
+#'The arguments \code{reldiff} and \code{reldir} can be supplied if they are
+#'already known (from a previous simulation, when the solar angle was the same,
+#'in particular). If you are not sure, please do not set these arguments!
+#'
+#'@aliases runYplant runYplant.plant3d runYplant.stand3d
+#'@param x An object of class 'plant3d', see \code{\link{constructplant}}
+#'@param phy An object of class 'ypphy', see \code{\link{setPhy}}
+#'@param hemi An object of class 'yphemi', see \code{\link{setHemi}}
+#'@param reldiff Optional. A vector of relative diffuse absorption, same length
+#'as number of leaves. See Details.
+#'@param reldir Optional. A vector of relative direct absorption, same length
+#'as number of leaves. See Details.
+#'@param altitude,azimuth Solar altitude and azimuth (degrees).
+#'@param fbeam Beam fraction (0-1). If 0, only diffuse interception is
+#'calculated, if 1, only direct.
+#'@param VPD Vapor pressure deficit (kPa)
+#'@param PAR0 Incident PAR on a horizontal surface (mu mol m-2 s-1).
+#'@param PARwhere If 'above', \code{PAR0} is given as an above-canopy value. If
+#''below', it is below the canopy. See Details.
+#'@param Ca Atmospheric CO2 concentration (ppm).
+#'@param Tair Air temperature (deg C).
+#'@param Patm Atmospheric pressure (kPa).
+#'@param reflec Leaf reflectance (top, bottom of leaf).
+#'@param transmit Leaf transmittance (top, bottom of leaf).
+#'@param runphoto Whether to run leaf gas exchange model (default TRUE, or
+#'FALSE when no phy object given).
+#'@param intern If FALSE, returns output of QuasiMC to the console.
+#'@param debug If TRUE, opens the QuasiMC debug window (for testing).
+#'@param delfiles If TRUE, deletes intermediate files, and QuasiMC in/output
+#'files.
+#'@param rewriteplantfile If TRUE, writes the plant QuasiMC input file.
+#'@param \dots Further arguments passed to \code{writecfg}.
+#'@return This returns a dataframe with one row per leaf. The variables
+#'included are (PAR is in units mu mol m-2 s-1):
+#'
+#'\describe{ \item{PAR0}{Incident PAR on a horizontal surface *above* the
+#'canopy} \item{PARinc}{Incident PAR on a horizontal surface *below* the
+#'canopy} \item{PARleaf}{Absorbed PAR (for each leaf)} \item{PARdir}{Absorbed
+#'direct PAR} \item{PARdiff}{Absorbed diffuse PAR} \item{reldiff}{Relative
+#'diffuse absorbed PAR (0 - 1)} \item{reldir}{Relative direct absorbed PAR (0 -
+#'1)} \item{LA}{Leaf area (mm2)} \item{LAproj}{Projected leaf area (mm2)}
+#'\item{LAsunlit}{Sunlit leaf area (mm2)} \item{A}{CO2 assimilation rate (mu
+#'mol m-2 s-1)} \item{E}{Transpiration rate (mmol m-2 s-1)} \item{gs}{Stomatal
+#'conductance (mol m-2 s-1)} \item{A0}{CO2 assimilation rate for a horizontal
+#'leaf *below* the canopy.} }
+#'@author Remko Duursma
+#'@seealso \code{\link{YplantDay}}, \code{\link{setPhy}},
+#'\code{\link{setHemi}}.
+#'@references See \url{http://www.remkoduursma/yplantqmc}
+#'@keywords misc
+#'@examples
+#'
+#'
+#'\dontrun{
+#'
+#'# Compare diffuse only to direct only
+#'run_dir <- runYplant(pilularis, fbeam=1, altitude=90, azimuth=0, reflec=0.15, transmit=0.1)
+#'run_diff <- runYplant(pilularis, fbeam=0, reflec=0.15, transmit=0.1)
+#'
+#'# Compare density functions of absorbed PAR by leaf:
+#'plot(density(run_dir$PARleaf, from=0, to=1), xlim=c(0,1), main="", lwd=2, col="blue",
+#'	xlab="Absorbed PAR (relative units)")
+#'lines(density(run_diff$PARleaf, from=0, to=1), lwd=2, col="red")
+#'legend("topright",c("Diffuse","Direct"), lwd=2, col=c("red","blue"))
+#'}
+#'
+#' @export runYplant
+#' @rdname runYplant
 runYplant <- function(x,...)UseMethod("runYplant")
 
+#'@method runYplant stand3d
+#'@S3method runYplant stand3d
+#'@rdname runYplant
+runYplant.stand3d <- function(x,...){
+  
+  
+  stand <- x  
+  
+  # List of leaves
+  leaves <- list()
+  for(i in 1:stand$nplants){
+    leaves[[i]] <- stand$plants[[i]]$leaves
+  }
+  leaves <- do.call(c,leaves)
+  
+  # Fake 'plant' object; a link of all plants in the stand.
+  p <- list(leaves=leaves)
+  p$nleaves <- sum(stand$nleaves)
+  
+  # Make QuasiMC input file
+  m <- makeQMCinput(p, writefile=FALSE)
+  p$qmcinput <- m$qmcinput
+  p$qmcinputfile <- m$inputfile
+  p$qmcoutputfile <- m$outputfile
+  
+  p$phy <- NULL
+  
+  # $leafdata$area
+  ld <- lapply(stand$plants, function(x)x$leafdata)
+  ld <- do.call(rbind,ld)
+  p$leafdata <- ld
+  
+  run <- runYplant.plant3d(p,...)
+  
+  run$plantnr <- rep(1:stand$nplants, stand$nleaves)
+  
+  return(run)
+}
+
+
+#'@method runYplant plant3d
+#'@S3method runYplant plant3d
+#'@rdname runYplant
 runYplant.plant3d <- function(x, 
 			phy=NULL,
 			hemi=NULL,
@@ -119,7 +254,9 @@ runYplant.plant3d <- function(x,
 		gapfracdir <- evalHemi(hemi, altitude, azimuth)$gapfraction
 		
 		# Weighted mean gap fraction for diffuse light
-		dif <- evalHemi(hemi, altitude=turtle482$altitude, azimuth=turtle482$azimuth,
+		dif <- evalHemi(hemi, 
+                    altitude=YplantQMC::turtle482$altitude, 
+                    azimuth=YplantQMC::turtle482$azimuth,
 			degrees=FALSE)
 		gapfracdiff <- weighted.mean(dif$gapfraction, sin(dif$altitude))
 		
@@ -152,7 +289,6 @@ runYplant.plant3d <- function(x,
 	if(runphoto){
 		# Run photosynthesis module.
 		metvars <- list(PAR=PARs, Tair=Tair, Ca=Ca, VPD=VPD, Patm=Patm)
-		# tm2 <- system.time(
 		photorun <- do.call(phy$leaffunction, c(phy$leafpars, metvars))
 
 		# Run photosynthesis module for a flat unshaded leaf.
@@ -165,10 +301,6 @@ runYplant.plant3d <- function(x,
 		# cbind.
 		ypresults <- cbind(ypresults, photorun)
 	} 
-	
-	# # elapsed times.
-	# ypresults$raytracetime <- tm1[3]
-	# ypresults$leafsimtime <- tm2[3]
 	
 	if(delfiles){
 		unlink(infile)

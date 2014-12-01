@@ -1,3 +1,5 @@
+#'@method print STAR
+#'@S3method print STAR
 print.STAR <- function(x, ...){
 	cat("\nAverage displayed and projected leaf area.\n")
 	cat(paste(c(rep("-",30),"\n"),collapse=""))

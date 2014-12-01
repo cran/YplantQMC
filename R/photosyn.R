@@ -1,11 +1,3 @@
-
-
-# Make DLL :
-# R CMD SHLIB photosyn.f90
-# load dll
-# dyn.load()
-# dyn.unload()
-
 photosynfun <- function(
 PAR = 1000,
 TLEAF = 20,

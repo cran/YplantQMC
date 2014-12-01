@@ -1,5 +1,4 @@
-
-
+#'@rdname setHemi
 evalHemi <- function(hemi, altitude=NULL, azimuth=NULL, 
 	met=NULL, degrees=TRUE){
 
@@ -21,14 +20,14 @@ evalHemi <- function(hemi, altitude=NULL, azimuth=NULL,
 		azout <- pi/180 * met$dat$azimuth
 	}
 
-	intgapfrac <- c()
-
 	# Look up gapfraction for the hemiphoto tile.
 	p_azbin <- findInterval(azout, hemi$azbins)
 	p_altbin <- findInterval(altout, hemi$altbins)
+  
 	# Sometimes a point is numerically > pi/2; set altitude to max bin.
 	p_altbin[p_altbin > hemi$nalt] <- hemi$nalt
-	# Sometimes azimuth is exactly 360 (2*pi), ends in last bin. Put in first.
+	
+  # Sometimes azimuth is exactly 360 (2*pi), ends in last bin. Put in first.
 	p_azbin[p_azbin > hemi$naz] <- 1
 	
 	intgapfrac <- c()

@@ -1,4 +1,5 @@
-
+#'@method print stand3d
+#'@S3method print stand3d
 print.stand3d <- function(x,...){
   
   n <- length(x$plants)

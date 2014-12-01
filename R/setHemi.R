@@ -1,4 +1,35 @@
-
+#'Generate a hemiphoto object
+#'
+#'@description Construct an object that contains information on shading by the canopy, as
+#'measured with hemi-spherical photographs ('hemiphotos'). Reads one of two
+#'formats. See YplantQMC website for example files, and the instruction manual
+#'for more background.
+#'
+#'
+#'@aliases setHemi evalHemi plot.yphemi
+#'@param canfile A canopy file (see Vignette for format example).
+#'@param canopytrans Minimum transmission of canopy (when gap fraction = 0).
+#'@param hemi An object generated with \code{setHemi}.
+#'@param altitude,azimuth Viewing altitude and azimuth.
+#'@param met Optionally, a \code{ypmet} object.
+#'@param degrees Whether altitude and azimuth were given in degrees (if FALSE,
+#'radians).
+#'@param x For \code{plot.yphemi}, a \code{yphemi} object
+#'@param sungap If TRUE, and a \code{ypmet} object is used, plots the sun along
+#'the path, with the size relative to the gap fraction
+#'@param projection If 'iso', each altitude bin has the same width in the plot
+#'(Default). If 'flat', projection is as seen from above.
+#'@param warn If TRUE and sungap=TRUE, warns when gap fractio is very low.
+#'@param bordercol Color of the grid separating the sky sectors. Use \code{NA}
+#'to omit borders.
+#'@param \dots Further arguments passed to plot.default
+#'@author Remko Duursma
+#'@seealso \code{\link{setMet}}
+#'@references For background on hemiphotos :
+#'\url{http://en.wikipedia.org/wiki/Hemispherical_photography}
+#'@keywords misc
+#'@rdname setHemi
+#'@export
 setHemi <- function(canfile, canopytrans=0.02){
 	
 	

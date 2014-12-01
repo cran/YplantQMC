@@ -1,5 +1,34 @@
-
-
+#'Make a three panel plot of a 3D plant
+#'
+#'@description Three plots of a 3D plant: views from the east, south and from above. This is
+#'a lame way to plot the plant, as the stems are always plotted on top (whether
+#'or not they are visible). It is available for quick plotting, and for
+#'\code{\link{ypreport}}, as it does not require the \code{rgl} package.
+#'
+#'See \code{\link{plot.plant3d}} for more advanced, high quality, plotting of
+#'plants.
+#'
+#'This function plots the plant from above, east and west views. Stems are also
+#'plotted, as opposed to the standard plot of a projected plant (see
+#'\code{\link{projectplant}}).
+#'
+#'@param plant An object of class 'plant3d' (see \code{\link{constructplant}}).
+#'@param side Which side to plot (can specify more than 1).
+#'@param stems If TRUE, plots the stem sections (always on top, lame).
+#'@param autopar If TRUE, tries to guess how to split up the plotting device.
+#'@note This function is called by \code{\link{ypreport}}.
+#'@author Remko Duursma
+#'@seealso \code{\link{plot.plant3d}},\code{\link{projectplant}}
+#'@keywords misc
+#'@examples
+#'
+#'
+#'# Toona australis from above
+#'viewplot(toona, "above")
+#'
+#'
+#'
+#'@export
 viewplot <- function(plant, side=c("east","south","above"), stems=TRUE, autopar=TRUE){
 
 	side <- tolower(side)

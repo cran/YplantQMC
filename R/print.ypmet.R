@@ -1,3 +1,5 @@
+#'@method print ypmet
+#'@S3method print ypmet
 print.ypmet <- function(x,ndigits=2,...){
 
 	cat("Yplant - daily weather object (class 'ypmet').\n\n")

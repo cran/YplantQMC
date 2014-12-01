@@ -1,4 +1,5 @@
-
+#'@method print yplocation
+#'@S3method print yplocation
 print.yplocation <- function(x,...){
 
 	cat("Yplant - location object (class 'yplocation')\n\n")

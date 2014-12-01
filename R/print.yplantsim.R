@@ -1,3 +1,5 @@
+#'@method print yplantsim
+#'@S3method print yplantsim
 print.yplantsim <- function(x, ...){
 	
 
@@ -8,7 +10,8 @@ print.yplantsim <- function(x, ...){
 	cat("Number of time steps: ", x$nsteps, "\n\n")
 	
 	if(x$met$daylength != "not calculated"){
-		cat("Total photosynthesis (mol CO2 d-1) =", 
+		if("A" %in% names(x$psrdata))
+      cat("Total photosynthesis (mol CO2 d-1) =", 
 			round(sum(x$psrdata$A * x$psrdata$timestep),3)*10^-6, "\n")
 		if("E" %in% names(x$psrdata)){
 			cat("Total transpiration (mol H2O d-1) =", 

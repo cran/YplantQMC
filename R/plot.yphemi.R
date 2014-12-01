@@ -1,11 +1,16 @@
-
+#'@method plot yphemi
+#'@S3method plot yphemi
+#'@rdname setHemi
 plot.yphemi <- function(x,met=NULL,sungap=TRUE,
 	projection=c("iso","flat"),warn=TRUE,bordercol='black', ...){
 
 	projection <- match.arg(projection)
 	hemi <- x
 	
-	par(pty='s')
+  o <- par(no.readonly=TRUE)
+	on.exit(par(o))
+  
+  par(pty='s')
 	plot(1, type='n',
 	axes=FALSE, ann=FALSE,xlim=c(-1.15,1.15),ylim=c(-1.15,1.15))
 	
@@ -65,7 +70,7 @@ plot.yphemi <- function(x,met=NULL,sungap=TRUE,
 		}
 		
 		gapfracdir <- evalHemi(hemi, met=met)$gapfraction
-		# browser()
+		
 		if(sungap){
 			points(sX, sY, col="darkorange2", pch=19, type='l')
 			points(sunX, sunY, col="darkorange2", pch=19, cex=3*gapfracdir)

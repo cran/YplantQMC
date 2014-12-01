@@ -1,6 +1,7 @@
-	
+#'@method plot yplantsim
+#'@S3method plot yplantsim
 plot.yplantsim <- function(x, type=c("dayplot","LAsunlit"), xlab="Time of day (hours)",
-	openwin=setpar,xlim=c(0,24),setpar=TRUE, ...){
+	xlim=c(0,24),setpar=TRUE, ...){
 
 	type <- match.arg(type)
 	
@@ -8,13 +9,13 @@ plot.yplantsim <- function(x, type=c("dayplot","LAsunlit"), xlab="Time of day (h
 	# TRUE if photosynthesis calculated.
 	runphoto <- "A" %in% names(x$outdata)
 	
-	aparm2s <- x$psrdata$PARleaf #/ x$psrdata$LAplant
-	apar0m2s <- x$psrdata$PAR0 #/ x$psrdata$LAplant
+	aparm2s <- x$psrdata$PARleaf 
+	apar0m2s <- x$psrdata$PAR0 
 	PAR <- x$met$dat$PAR
 	
 	if(runphoto){
-	x$psrdata$aleaf <- with(x$psrdata, A)  #/LAplant)
-	x$psrdata$aleaf0 <- with(x$psrdata, A0) #/LAplant)
+	x$psrdata$aleaf <- with(x$psrdata, A)  
+	x$psrdata$aleaf0 <- with(x$psrdata, A0) 
 	
 	haveE <- "E" %in% names(x$psrdata)
 	if(haveE){
@@ -23,13 +24,12 @@ plot.yplantsim <- function(x, type=c("dayplot","LAsunlit"), xlab="Time of day (h
 		x$psrdata$ITE[!is.finite(x$psrdata$ITE)] <- NA
 	}
 	
-	if(openwin && .Platform$OS.type == "windows")windows(8,8)
 	if(setpar)par(mfrow=c(2,2), mar=c(5,5,1,1), cex.lab=1.1, cex.axis=0.9)
 	with(x$psrdata, plot(timeofday, aleaf0, type='o', pch=21, bg="white", 
 		xlab=xlab,
 		ylab=expression(italic(A)[plant]~(mu*mol~m^-2*(leaf)~s^-1)),
 		xlim=xlim,
-		ylim=c(min(aleaf),max(aleaf0))))
+		ylim=c(min(aleaf),1.05*max(aleaf0))))
 	with(x$psrdata, points(timeofday, aleaf, type='o', pch=15))
 	abline(h=0, col="darkgrey")
 	legend("topleft",c("Plant","Hor. leaf"),pch=c(15,1),
@@ -40,7 +40,7 @@ plot.yplantsim <- function(x, type=c("dayplot","LAsunlit"), xlab="Time of day (h
 			xlab=xlab,
 			ylab=expression(italic(E)[plant]~(mmol~m^-2*(leaf)~s^-1)),
 			xlim=xlim,
-			ylim=c(0,max(eleaf,na.rm=T))))
+			ylim=c(0,1.05*max(eleaf,na.rm=T))))
 		} else {
 			# an empty plot.
 			plot(1, ann=FALSE, axes=FALSE, type='n')
@@ -52,27 +52,21 @@ plot.yplantsim <- function(x, type=c("dayplot","LAsunlit"), xlab="Time of day (h
 	if(setpar)par(mfrow=c(2,1), mar=c(5,5,1,1), cex.lab=1.1, cex.axis=0.9)
 	}
 	
+  
 	with(x$psrdata, plot(timeofday, PARleaf, type='o', pch=15,
-		xlim=xlim, ylim=c(0,max(PAR)),
+		xlim=xlim, ylim=c(0,1.05*max(PAR)),
 		xlab=xlab,
 		ylab=expression(APAR~~(mu*mol~m^-2~s^-1))))
 	with(x$psrdata, points(timeofday, PAR0, type='o', pch=19, cex=0.5, col="darkgrey"))
 	with(x$psrdata, points(timeofday, PARinc, type='o', pch=21, bg="white"))
 	legend("topleft",c("Plant","Hor. leaf", "Above canopy"),pch=c(15,1,1),
 		cex=0.8, bty='n', pt.cex=c(1,1,0.5), col=c("black","black","darkgrey"))
-		
 
-	# with(x$psrdata, plot(timeofday, ITE, type='o', pch=21, bg="white", 
-		# xlab="Time of day (hours)",
-		# ylab=expression(ITE~(mmol~(H[2]*O)~mu*mol^-1*(CO[2]))),
-		# xlim=c(0,24),
-		# ylim=c(0,max(ITE,na.rm=T))))
-		
 	with(x$psrdata, plot(timeofday, PARdiff, type='o', pch=21, bg="white", 
 		xlab=xlab,
 		ylab=expression(APAR~~(mu*mol~m^-2~s^-1)),
 		xlim=xlim,
-		ylim=c(0,max(PARdiff,PARdir,na.rm=T))))
+		ylim=c(0,1.05*max(PARdiff,PARdir,na.rm=T))))
 	with(x$psrdata, points(timeofday, PARdir, type='o', pch=21, bg="black"))
 	legend("topleft",c("Direct","Diffuse"), pch=c(19,1), cex=0.8)
 	}

@@ -1,9 +1,6 @@
 runQMCUOC <- function(plant, hemi=NULL, reflec=NULL, transmit=NULL, 
-	# method=c("closest","linear"),
 	...){
 
-		# method <- match.arg(method)
-	
 		# No reflection or transmission set: black leaves.
 		if(is.null(reflec) & is.null(plant$phy))reflec <- c(0,0)
 		if(is.null(transmit) & is.null(plant$phy))transmit <- c(0,0)

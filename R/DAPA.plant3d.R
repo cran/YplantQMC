@@ -7,19 +7,15 @@ DAPA.plant3d <- function (object, azimuth=NA, altitude=NA, exact=FALSE, npside=5
 	AZ <- azimuth * 180/pi
 	ALT <- altitude * 180/pi
 	
-  
   if(exact)
     stop("Method 'exact' temporarily unavailable. Contact package maintainer.")
-  
-    if (!inherits(plant, "plant3d")) 
-        stop("Need object of class 'plant3d'\n")
 
 	# Get total leaf area.
-	LA <- sum(plant$leafdata$area)
+	LA <- plant$leafarea * 10^6
 	nleaves <- plant$nleaves
 	
 	# Project plant
-    newplant <- projectplant(plant, AZ, ALT)
+  newplant <- projectplant(plant, AZ, ALT)
     
 	# Silhouette area (area of convex hull in 2D projected plane).
 	silho <- Silhouette(newplant)$H

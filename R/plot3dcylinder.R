@@ -1,3 +1,9 @@
+#'@importFrom rgl addNormals
+#'@importFrom rgl shade3d
+#'@importFrom rgl scale3d
+#'@importFrom rgl cylinder3d
+#'@importFrom rgl translate3d
+#'@importFrom rgl rotate3d
 plot3dcylinder <- function(start=c(0,0,0), end=c(0,0,1), radius, mycol="chocolate4", ... ){ 
 
 	# ... cylinder as basis-vector 
@@ -15,7 +21,7 @@ plot3dcylinder <- function(start=c(0,0,0), end=c(0,0,1), radius, mycol="chocolat
 	cyl <- scale3d(cyl,1,1,len) 
 
 	# Rotate cylinder.
-	rotation <- rgl:::GramSchmidt(end-start+c(1,0,0),end-start+c(0,1,0),end-start,   
+	rotation <- GramSchmidt(end-start+c(1,0,0),end-start+c(0,1,0),end-start,   
 		order=c(3,1,2)) 
 	cyl <- rotate3d(cyl, matrix=rotation) 
 

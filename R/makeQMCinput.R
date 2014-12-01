@@ -1,13 +1,14 @@
 
-makeQMCinput <- function(plant, inputfile=NA, outputfile=NA, writefile=TRUE){
+makeQMCinput <- function(plant, inputfile=NULL, outputfile=NULL, writefile=TRUE){
   
 	if(is.character(plant$pfile)){
 		proot <- gsub("\\.p","",plant$pfile,ignore.case=TRUE)
+    proot <- basename(proot)
 	} else {
 		proot <- paste0("Plant",plant$nleaves)
 	}
-	if(is.na(inputfile))inputfile <- paste(proot,".dat",sep="")
-	if(is.na(outputfile))outputfile <- paste(proot,".out",sep="")
+	if(is.null(inputfile))inputfile <- paste0(proot,".dat")
+	if(is.null(outputfile))outputfile <- paste0(proot,".out")
 
 	unlink(inputfile)
 	unlink(outputfile)

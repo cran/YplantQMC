@@ -1,3 +1,5 @@
+#'@method print plant3dlist
+#'@S3method print plant3dlist
 print.plant3dlist <- function(x, ...){
 	cat("Yplant - object of class 'plant3dlist'.\n\n")
 	cat(paste(c(rep("-",30),"\n"),collapse=""))

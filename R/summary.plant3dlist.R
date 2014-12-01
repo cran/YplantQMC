@@ -1,3 +1,6 @@
+#'@method summary plant3dlist
+#'@S3method summary plant3dlist
+#'@rdname summary.plant3d
 summary.plant3dlist <- function(object, writefile=FALSE, ...){
 
 	plants <- object

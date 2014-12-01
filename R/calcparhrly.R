@@ -11,12 +11,12 @@ calcparhrly <- function(zens, DOY, totpar, KHRS=24, TAU=0.76,
 	# Beam fraction for daily PAR (Spitters 1986 method).
 	if(is.na(fbeam_daily) & fbeam_method == "spitters"){
 		f <- .Fortran("CALCFBMD",
-				 as.integer(DOY),
-				 as.double(zens),
-				 as.double(totpar),
-				 as.double(-999),
-				 as.integer(KHRS),
-				 package="YplantQMC")
+                  as.integer(DOY),
+                  as.double(zens),
+                  as.double(totpar),
+                  as.double(-999),
+                  as.integer(KHRS),
+                  PACKAGE="YplantQMC")
 		fbeam_daily <- f[[4]]
 	}
 
@@ -30,14 +30,14 @@ calcparhrly <- function(zens, DOY, totpar, KHRS=24, TAU=0.76,
 	PARs <- rep(-999, KHRS)
 
 	f2 <- .Fortran("CALCPARHRLY",
-			 as.double(partot_beam),
-			 as.double(partot_diff),
-			 as.double(zens),
-			 as.double(PARs),
-			 as.double(fbeams),
-			 as.double(TAU),
-			 as.integer(KHRS),
-			 package="YplantQMC")
+                 as.double(partot_beam),
+                 as.double(partot_diff),
+                 as.double(zens),
+                 as.double(PARs),
+                 as.double(fbeams),
+                 as.double(TAU),
+                 as.integer(KHRS),
+                 PACKAGE="YplantQMC")
 
 	PAR0 <- f2[[4]]
 	fbeam <- f2[[5]]

@@ -1,14 +1,23 @@
+
+#'@rdname setPhy
+#'@export includePhy
 includePhy <- function(object,...){
 	UseMethod("includePhy")
 }
 
-
+#'@rdname setPhy
+#'@method includePhy plant3d
+#'@S3method includePhy plant3d
 includePhy.plant3d <- function(object, ...){
 	phy <- setPhy(...)
 	object$phy <- phy
 return(object)
 }
 
+
+#'@rdname setPhy
+#'@method includePhy plant3dlist
+#'@S3method includePhy plant3dlist
 includePhy.plant3dlist <- function(object, phydfr, ...){
 
 	pfiles <- attributes(object)$pfiles

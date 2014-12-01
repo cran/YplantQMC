@@ -1,3 +1,5 @@
+#'@method plot ypmet
+#'@S3method plot ypmet
 plot.ypmet <- function(x,...){
 
 	dat <- x$dat

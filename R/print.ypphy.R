@@ -1,4 +1,5 @@
-
+#'@method print ypphy
+#'@S3method print ypphy
 print.ypphy <- function(x,...){
 	cat("Yplant - Leaf physiology object (class 'ypphy')\n\n")
     cat("Model :", x$leafmodel, "\n")

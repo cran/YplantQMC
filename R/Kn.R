@@ -16,15 +16,14 @@ Kn <- function(plant, kneighbors=5, returnmatrix=FALSE){
 		nleaves <- nrow(xyz)
 	}
 		
-    x <- xyz$x / 1000
+  x <- xyz$x / 1000
 	y <- xyz$y / 1000
 	z <- xyz$z / 1000
 	
 	res <- matrix(nrow=nleaves,ncol=nleaves)
 	res[] <- 0
 	
-	f <- .Fortran("Kn", as.double(x),as.double(y),as.double(z),as.integer(nleaves),as.double(res),
-		PACKAGE="YplantQMC")
+	f <- .Fortran("kn", as.double(x),as.double(y),as.double(z),as.integer(nleaves),as.double(res),PACKAGE="YplantQMC")
 
 	m <- f[[5]]
 	m <- matrix(m, ncol=nleaves)

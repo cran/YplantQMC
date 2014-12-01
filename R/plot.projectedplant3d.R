@@ -1,3 +1,6 @@
+#'@method plot projectedplant3d
+#'@S3method plot projectedplant3d
+#'@rdname projectplant
 plot.projectedplant3d <- function(x, silhouette=FALSE, 
 	xlim=NULL, ylim=NULL, leaffill=TRUE, leafcol="forestgreen",
 	zerocenter=FALSE,xlab="X",ylab="Y",

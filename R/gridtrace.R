@@ -2,8 +2,6 @@
 		
 gridtrace <- function(obj, npside=100, returnall=TRUE){
 
-	if(class(obj) != "projectedplant3d")stop("Need projected plant. See\n")
-
 	# Get xy bounds of the leaf edges, to place grid
 	bounds <- obj$viewbound
 

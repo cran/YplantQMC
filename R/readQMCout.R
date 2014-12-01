@@ -2,7 +2,8 @@
 # Obsolete! Reads the E() module; but now all interesting stuff is in the qmcarea.out file.
 readQMCout <- function(outfile){
 	options(warn= -1)
-	
+	on.exit(options(warn=0))
+  
 	r <- readLines(outfile)
 	n <- length(r)
 	
@@ -20,10 +21,6 @@ readQMCout <- function(outfile){
 	id <- gsub(" E\\(.+","",r)
 	id <- gsub("\001","",id)
 	id <- as.numeric(id)
-	
-	# dfr <- data.frame(ID = id[!is.na(id)], PFD=pfd[!is.na(pfd)])
-	
-	options(warn=0)
 	
 # return only vector of PFDs, for now. If things go bad, return ID as well to check...
 return(pfd[!is.na(pfd)])

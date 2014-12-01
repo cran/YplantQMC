@@ -1,3 +1,5 @@
+#'@method print yplantsimlist
+#'@S3method print yplantsimlist
 print.yplantsimlist <- function(x,...){
 
 	nplants <- length(x)

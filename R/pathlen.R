@@ -4,19 +4,18 @@ pathlen <- function(plant, testleaf=NA, plotit=!is.na(testleaf), add=FALSE,
 	
 	returnwhat <- match.arg(returnwhat)
 
-	
 	plotstem <- function(plant,i){
 
 			st <- plant$stems[[i]]
 			if(st$diam > 0){
-				YplantQMC:::plot3dcylinder(start=st$xyz$from, end=st$xyz$to, radius=st$diam/2)
+				plot3dcylinder(start=st$xyz$from, end=st$xyz$to, radius=st$diam/2)
 			}
 	}
 	plotbranch <- function(plant,i){
 
 			st <- plant$branches[[i]]
 			if(st$diam > 0){
-				YplantQMC:::plot3dcylinder(start=st$xyz$from, end=st$xyz$to, radius=st$diam/2)
+				plot3dcylinder(start=st$xyz$from, end=st$xyz$to, radius=st$diam/2)
 			}
 	}
 	
@@ -48,7 +47,7 @@ pathlen <- function(plant, testleaf=NA, plotit=!is.na(testleaf), add=FALSE,
 			if(!add)plot(p, noleaves=TRUE, cylinderstems=FALSE)
 			for(i in theseleaves){
 				xyz <- p$leaves[[i]]$XYZ
-				plot3d(xyz[,1], xyz[,2], xyz[,3], col="red", 
+				rgl::plot3d(xyz[,1], xyz[,2], xyz[,3], col="red", 
 					type="l", add=T, lwd=2)
 			}
 	}

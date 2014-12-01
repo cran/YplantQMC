@@ -1,8 +1,8 @@
       subroutine kn(x,y,z,nleaf,res)
 		 
       integer nleaf
-      double precision x(nleaf), y(nleaf), z(nleaf)	  
       integer i,j
+      double precision x(nleaf), y(nleaf), z(nleaf)	  
       double precision distan
       double precision res(nleaf,nleaf)
 	  

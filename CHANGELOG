@@ -21,3 +21,8 @@
 0.3-4 Minor updates to stand3d support.
 0.4 First version hosted on CRAN.
 0.5 Support for stand3d objects.
+0.5-2 Minor doc updates (URLs)
+0.5-3 Package on bitbucket, roxygen comments, minor changes.
+0.5-4 Vignette added
+0.6 Removed dependency on yptools, now uses rgl functions for polygon plotting. 
+0.6-2 Removed vignette; was causing problems.

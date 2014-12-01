@@ -1,5 +1,5 @@
 
-writePSRfile <- function(yplantsim, ndigits=6){
+writePSRfile <- function(yplantsim, suffix="", ndigits=6){
 
 	if(!inherits(yplantsim, "yplantsim"))
 		stop("Need object output by YplantDay.")
@@ -11,7 +11,8 @@ writePSRfile <- function(yplantsim, ndigits=6){
 	proot <- gsub("\\.p$","",pfile, ignore.case=TRUE)
   if(is.null(proot))
     proot <- format(Sys.time(), "%Y-%m%-%d")
-	filen <- paste0(proot,"-YplantQMC.PSR")
+  
+	filen <- paste0(proot,suffix,"-YplantQMC.PSR")
 	
 	r <- c()
 	r[1] <-  "Simulation summary for plant constructed from files:"

@@ -1,4 +1,5 @@
-
+# Copied directly from Yplant code (translated from Delphi). 
+# Courtesy of Bob Pearcy
 madeleafdirection <- function(mor,lor,lar){
 
   if(lar == 0){  # then  //This condition indicates that the leaf is flat
@@ -27,8 +28,9 @@ madeleafdirection <- function(mor,lor,lar){
 	
     model <- sqrt(ld.e^2 + ld.n^2 + ld.z^2)
     ld.e <- ld.e/model 
-	ld.n <- ld.n/model
-	ld.z <- ld.z/model
+	  ld.n <- ld.n/model
+	  ld.z <- ld.z/model
+    
     #{get leaf plane X axis} -- I think he means leaf width vector, perpendicular to leaf length vector
     wd.e <- ld.n*normal.z - ld.z*normal.n
     wd.n <- ld.z*normal.e - ld.e*normal.z

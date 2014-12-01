@@ -1,3 +1,5 @@
+#'@method plot tracedplant
+#'@S3method plot tracedplant
 plot.tracedplant <- function (x, ...) 
 {
 	# 'Greens' from RColorBrewer

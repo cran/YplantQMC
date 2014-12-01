@@ -1,3 +1,20 @@
+#'Get crown radius of a plant
+#'
+#'Calculates the crown radius of a plant, given the x,y,z coordinates of the
+#'leaves. See Details. Typically not invoked by user, but used by
+#'\code{\link{summary.plant3d}} to estimate crown width.
+#'
+#'The crown radius is the distance from the centre of the plant to the furthest
+#'leaf in that direction. This distance is found for four directions
+#'(corresponding to the four quadrants). The centre of the plant is found from
+#'the average x,y coordinate (and may thus differ from the 'stem' location).
+#'
+#'@param xyz A matrix or dataframe of xyz coordinates.
+#'@return Returns only the mean crown radius of the four quadrants.
+#'@author Remko Duursma
+#'@seealso
+#'\code{\link{summary.plant3d}},\code{\link{crownhull}},\code{\link{Silhouette}}
+#'@keywords misc
 getR <- function(xyz){
 
 	if(class(xyz) == "plant3d")

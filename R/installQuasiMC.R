@@ -1,4 +1,28 @@
-
+#'Download and install the QuasiMC executable
+#'
+#'@description Downloads the Windows/Mac executable necessary for running
+#'\code{\link{runYplant}} and \code{\link{YplantDay}}.
+#'
+#'QuasiMC is developed by Cieslak et al. (2008), which is part of the Virtual
+#'Laboratory plant modelling software created at the University of Calgary
+#'(\url{http://www.algorithmicbotany.org}).
+#'
+#'Both files are placed in the directory (for windows, \code{c:/QuasiMC}),
+#'which is created if it does not exist already.
+#'
+#'This function can also be used to update an existing installation.
+#'
+#'
+#'@param proxy Use TRUE if connecting through a proxy. This invokes
+#'\code{\link{setInternet2}}
+#'@author QuasiMC by Mik Cieslak, R installation code by Remko Duursma.
+#'@references Cieslak, M., C. Lemieux, J. Hanan and P. Prusinkiewicz. 2008.
+#'Quasi-Monte Carlo simulation of the light environment of plants. Functional
+#'Plant Biology. 35:837-849.
+#'
+#'See also \url{http://www.remkoduursma/yplantqmc}
+#'@keywords misc
+#'@export
 installQuasiMC <- function(proxy=FALSE){
 
         # MC 2/12/2012 - updated to include install for Mac OS X
@@ -9,7 +33,7 @@ installQuasiMC <- function(proxy=FALSE){
 			message("Created the directory : c:/QuasiMC")
 		}
 
-		if(proxy)utils::setInternet2(TRUE)
+		if(proxy)setInternet2(TRUE)
 		
 		if(file.exists("c:/quasimc/QuasiMC.zip")){
 			message("Updating existing QuasiMC installation.")

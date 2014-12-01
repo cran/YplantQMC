@@ -1,9 +1,14 @@
+#'@method summary yplantsimlist
+#'@S3method summary yplantsimlist
 summary.yplantsimlist <- function(object, totals=TRUE, writefile=FALSE, ...){
 
 	x <- object
+  
 	# Sum these variables.
 	vars <- c("PARleaf","PARdir","PARdiff","PARinc","A","A0","E")
-	vars <- intersect(vars, names(x[[1]]$psrdata))
+	
+  # Toss the ones that are not in the psrdata (e.g, E is not always present)
+  vars <- intersect(vars, names(x[[1]]$psrdata))
 	
   if(totals){
   	sums <- lapply(x, function(z){

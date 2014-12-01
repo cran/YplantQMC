@@ -21,14 +21,14 @@
     DOUBLE PRECISION SUMBM,SUMDF,COSZEN,HRTIME,RDBM,RADBM,RDDF,RADDF
     DOUBLE PRECISION PI,PID2,PID180, TAU, UMOLPERJ
 	
-	PI = 3.1412653
-	PID2 = PI/2
-	PID180 = PI/180
-	UMOLPERJ = 4.57     ! Conversion from J to umol quanta
+  	PI = 3.1412653
+  	PID2 = PI/2
+  	PID180 = PI/180
+  	UMOLPERJ = 4.57     ! Conversion from J to umol quanta
     SUMBM = 0.0
     SUMDF = 0.0
-	  
-	SPERHR = 24*60*60/DBLE(KHRS)
+  	  
+  	SPERHR = 24*60*60/DBLE(KHRS)
 
       DO I=1,KHRS
         COSBM(I) = 0.0
@@ -59,8 +59,8 @@
           RDDF = 0.0
         END IF
 		
-! Convert from MJ hr-1 to J s-1
-        RADABV(I)=UMOLPERJ * (RDDF+RDBM)*1e6/SPERHR
+! Convert from MJ m-2 hr-1 to mu mol m-2 s-1
+        RADABV(I) = UMOLPERJ * (RDDF+RDBM)*1E6 / SPERHR
         IF ((RDBM+RDDF).GT.0.0) THEN
           FBEAM(I) = RDBM/(RDBM+RDDF)
         ELSE
@@ -92,33 +92,33 @@
     DOUBLE PRECISION S0,SINB,TRANS,ETRAD,FDIF
     DOUBLE PRECISION PI,PID2
 	
-	FPAR = 0.5
-	PI = 3.1415926
-	PID2 = PI/2
-	SPERHR = 24*60*60/DBLE(KHRS)
-	
+  	FPAR = 0.5
+  	PI = 3.1415926
+  	PID2 = PI/2
+  	SPERHR = 24*60*60/DBLE(KHRS)
+  	
 ! Calculate extra-terrestrial radiation
-      S0 = 0.0
-      DO IHR = 1,KHRS
+    S0 = 0.0
+    DO IHR = 1,KHRS
       SINB = SIN(PID2-ZEN(IHR))
-        S0 = S0 + ETRAD(DOY,SINB)*SPERHR/1E6
+      S0 = S0 + ETRAD(DOY,SINB)*SPERHR/1E6
 	  ENDDO
 
 ! Spitter's formula
-      TRANS = (PAR/FPAR) / S0
-      IF (TRANS.LT.0.07) THEN
-        FDIF = 1.
-      ELSE IF (TRANS.LT.0.35) THEN
-        FDIF = 1. - 2.3*(TRANS-0.07)**2
-      ELSE IF (TRANS.LT.0.75) THEN
-        FDIF = 1.33 - 1.46*TRANS
-      ELSE
-        FDIF = 0.23   
-      END IF   
-      FBM = 1. - FDIF
+    TRANS = (PAR/FPAR) / S0
+    IF (TRANS.LT.0.07) THEN
+      FDIF = 1.
+    ELSE IF (TRANS.LT.0.35) THEN
+      FDIF = 1. - 2.3*(TRANS-0.07)**2
+    ELSE IF (TRANS.LT.0.75) THEN
+      FDIF = 1.33 - 1.46*TRANS
+    ELSE
+      FDIF = 0.23   
+    END IF   
+    FBM = 1. - FDIF
 
-      RETURN
-      END !CalcFBMD
+    RETURN
+    END !CalcFBMD
 
 
 !**********************************************************************
@@ -134,14 +134,14 @@
     DOUBLE PRECISION SINB,PI,SOLARC
   
     PI = 3.1415926
-	SOLARC = 1370.0       ! Solar constant (J m-2 s-1)
+	  SOLARC = 1370.0       ! Solar constant (J m-2 s-1)
 	
-! Spitters' formula
-      IF (SINB.GT.0.0) THEN
-        ETRAD = SOLARC * (1 + 0.033*DCOS(2*PI*DBLE(DOY)/365.0)) * SINB
-      ELSE
-        ETRAD = 0.0
-      END IF
+    ! Spitters' formula
+    IF (SINB.GT.0.0) THEN
+      ETRAD = SOLARC * (1 + 0.033*DCOS(2*PI*DBLE(DOY)/365.0)) * SINB
+    ELSE
+      ETRAD = 0.0
+    END IF
 
-      RETURN
-      END !ETRad
+    RETURN
+    END !ETRad

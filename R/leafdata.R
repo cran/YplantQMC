@@ -2,12 +2,13 @@ leafdata <- function(plant,...){
 
 	
 	if(plant$inputformat == "P"){
-		leaflen <- plant$pdata$L.3[plant$pdata$Lt >0]
-		petiolelen <- plant$pdata$L.2[plant$pdata$Lt >0]
-		an <- plant$pdata$An.3[plant$pdata$Lt >0]
-		az <- plant$pdata$Az.3[plant$pdata$Lt >0]
-		or <- plant$pdata$Or[plant$pdata$Lt >0]
-		Lts <- plant$pdata$Lt[plant$pdata$Lt>0]
+    poslen <- plant$pdata$Lt >0
+		leaflen <- plant$pdata$L.3[poslen]
+		petiolelen <- plant$pdata$L.2[poslen]
+		an <- plant$pdata$An.3[poslen]
+		az <- plant$pdata$Az.3[poslen]
+		or <- plant$pdata$Or[poslen]
+		Lts <- plant$pdata$Lt[poslen]
 	}
 	
 	if(plant$inputformat == "Q"){
@@ -18,7 +19,7 @@ leafdata <- function(plant,...){
 		or <- plant$qdata$Or
 		Lts <- plant$qdata$Lt
 	}
-	
+  
 	# Find leaf shape (may vary by leaftype).
 	lsh <- c()
 	for(i in 1:length(Lts))lsh[i] <- plant$ldata[[Lts[i]]]$leafshape

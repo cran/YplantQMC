@@ -1,7 +1,10 @@
+# Purposely hidden function; this is a developer utility.
 checkHemi <- function(hemi){
-	gapfracs <- evalHemi(hemi, altitude=turtle482$altitude, azimuth=turtle482$azimuth,degrees=FALSE)	
-	hX <- cos(turtle482$altitude) * sin(turtle482$azimuth)
-	hY <- cos(turtle482$altitude) * cos(turtle482$azimuth)
+	
+  tur <- YplantQMC::turtle482
+  gapfracs <- evalHemi(hemi, altitude=tur$altitude, azimuth=tur$azimuth,degrees=FALSE)	
+	hX <- cos(tur$altitude) * sin(tur$azimuth)
+	hY <- cos(tur$altitude) * cos(tur$azimuth)
 	plot(hemi)
 	points(hX,hY,col='lightgrey',cex=0.5, pch=19)
 	points(hX,hY,col='red',cex=3*gapfracs$gapfraction)

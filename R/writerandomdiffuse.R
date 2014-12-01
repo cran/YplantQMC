@@ -1,8 +1,8 @@
 
 writerandomdiffuse <- function(n, intensity=NULL){
 
-	spher <- angledist('spherical')
-	zen <- drawsample(spher,n)
+	spher <- LeafAngle::angledist('spherical')
+	zen <- LeafAngle::drawsample(spher,n)
 	az <- runif(n,0,2*pi)
 	
 	if(is.null(intensity))intensity <- 1/n

@@ -1,3 +1,5 @@
+#'@method print summary.plant3d
+#'@S3method print summary.plant3d
 print.summary.plant3d <- function(x, ...){
 
 	cat("                                     Total leaf area (m2) =", signif(x$LA,digits=x$nsignif), "\n")
