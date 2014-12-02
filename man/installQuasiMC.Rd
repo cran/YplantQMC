@@ -7,7 +7,7 @@ installQuasiMC(proxy = FALSE)
 }
 \arguments{
 \item{proxy}{Use TRUE if connecting through a proxy. This invokes
-\code{\link{setInternet2}}}
+\code{setInternet2} - only works on Windows.}
 }
 \description{
 Downloads the Windows/Mac executable necessary for running

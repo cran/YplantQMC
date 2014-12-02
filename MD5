@@ -1,5 +1,5 @@
 cdf51eb1105ccbd7e2b1bbf12362bfe6 *CHANGELOG
-0ed4c381747feded3f0888c28764ed0f *DESCRIPTION
+8c2b166e2df14009427cd349862f76bc *DESCRIPTION
 5e5aebcb2dacc00ca28457e81bba87ea *NAMESPACE
 4be74c0b0947b473e9e9eea6956206ad *R/DAPA.R
 e17b50b9d63c5e93a605e819f3988bf4 *R/DAPA.plant3d.R
@@ -29,7 +29,7 @@ df8c8f168cfe37c4210794f1129c6553 *R/crownhull.R
 b4530549aec4a60204cf610837ff346f *R/getpsil.R
 a8465d39e3cd289a9ca947c1deab72bb *R/gridtrace.R
 37495331248cea03a5e8a4d6c21c0fae *R/includePhy.R
-489b972e362ef570dbc933a1e07efb5b *R/installQuasiMC.R
+8ad85853b409bf4ff34222e91afeda24 *R/installQuasiMC.R
 e2ea1d6c1884b57e13fec78447db6f6f *R/leafdata.R
 d8db95f298f7f60069fc6b9ecb302f9a *R/leafdispersion.R
 9700343b43d4eaf9a98aea84bc899354 *R/lightresponse.R
@@ -111,7 +111,7 @@ dec00a3c21057dcb424a652c1996d1e9 *man/YplantDay.Rd
 3a9ec723f3525b713363906b33f8c2d8 *man/examplehemi.Rd
 779fcaa1856c10d60b74a72e3dbdbd55 *man/getR.Rd
 f06688417be09403c25d5c63cb79861c *man/getangles.Rd
-60dacbd5ac434f6826ddb0851e3bd671 *man/installQuasiMC.Rd
+5a4518acb04d8271cc95e35365543df1 *man/installQuasiMC.Rd
 1a901dcec3fa3861ad489d6a21e215af *man/leafdispersion.Rd
 eb734dc06f65ab0b423195ff83536011 *man/lightresponse.Rd
 c87e48953914645232d3b6e6265e120e *man/makeStand.Rd

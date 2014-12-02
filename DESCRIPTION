@@ -1,7 +1,7 @@
 Package: YplantQMC
 Type: Package
 Title: Plant Architectural Analysis with Yplant and QuasiMC
-Version: 0.6-3
+Version: 0.6-4
 Author: Remko Duursma. QuasiMC by Mik Cieslak. Uses code by Robert Pearcy
     (Yplant) and Belinda Medlyn (MAESTRA)
 Depends: R (>= 2.10), rgl, geometry, LeafAngle, gplots
@@ -14,7 +14,7 @@ License: GPL-2
 URL: http://www.remkoduursma.com/yplantqmc,
         https://www.bitbucket.org/remkoduursma/yplantqmc/
 LazyData: yes
-Packaged: 2014-12-01 23:22:37 UTC; 30022860
+Packaged: 2014-12-02 21:45:06 UTC; 30022860
 NeedsCompilation: yes
 Repository: CRAN
-Date/Publication: 2014-12-02 00:36:14
+Date/Publication: 2014-12-03 08:47:29
