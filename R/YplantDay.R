@@ -83,7 +83,6 @@
 #'}
 #'@author Remko Duursma
 #'@seealso \code{\link{runYplant}},\code{\link{ypreport}}
-#'@references See \url{http://www.remkoduursma/yplantqmc}
 #'@keywords misc
 #'@examples
 #'

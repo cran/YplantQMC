@@ -68,7 +68,7 @@
 #'\code{photosyn} function in the package \code{GasExchangeR}. In that package,
 #'the code is borrowed from the MAESTRA model.
 #'@author Remko Duursma. Original implementation in FORTRAN by Belinda Medlyn
-#'(in the Maestra model).  See : \url{http://bio.mq.edu.au/maestra/}
+#'(in the Maestra model).  See : \url{http://maespa.github.io}
 #'@seealso \code{\link{lightresponse}},\code{\link{setPhy}}
 #'@references Farquhar, G.D., S. Caemmerer and J.A. Berry. 1980. A biochemical
 #'model of photosynthetic CO2 assimilation in leaves of C3 species. Planta.

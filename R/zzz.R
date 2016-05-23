@@ -1,3 +1,11 @@
+#'@importFrom grDevices chull dev.off grey pdf
+#'@importFrom graphics abline axis box legend locator
+#'@importFrom graphics mtext par plot points polygon rect
+#'@importFrom graphics segments text title
+#'@importFrom stats aggregate approxfun na.omit rnorm runif sd weighted.mean
+#'@importFrom utils capture.output download.file flush.console read.csv
+#'@importFrom utils read.table setTxtProgressBar txtProgressBar untar unzip write.table
+#'
 #'@useDynLib YplantQMC
 .onAttach <- function(lib, pkg) {
     

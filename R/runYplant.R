@@ -71,7 +71,6 @@
 #'@author Remko Duursma
 #'@seealso \code{\link{YplantDay}}, \code{\link{setPhy}},
 #'\code{\link{setHemi}}.
-#'@references See \url{http://www.remkoduursma/yplantqmc}
 #'@keywords misc
 #'@examples
 #'

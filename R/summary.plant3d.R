@@ -25,8 +25,8 @@
 #'stemsurf - Stem + branch surface area (cm2) 
 #'stemvol - Stem + branch volume (cm3) 
 #'stemdiam - Stem base diameter (mm) 
-#'meanpath - Mean pipe length (mm) 
-#'sdpath - Standard deviation of pipe length (mm) 
+##'meanpath - Mean pipe length (mm) 
+##'sdpath - Standard deviation of pipe length (mm) 
 #'totlen - Total woody segment length (mm) 
 #'Ek - Expected distance to 5 nearest leaves (no edge corr.)  
 #'Ek2 - Expected distance to 5 nearest leaves (with edge corr.)  
@@ -62,6 +62,7 @@
 #'cur. working dir.
 #'@param calcSTARbar If TRUE, also calculates STARbar and adds it to the
 #'summary result.
+#'@param calcpathlen If TRUE, calculates mean and SD of path length from ground surface to leaves (default is now FALSE, because this feature may be unstable).
 #'@param \dots Further arguments passed to \code{\link{STARbar}}.
 #'@return A list with components described above. See also the Examples below.
 #'@author Remko Duursma
@@ -91,7 +92,7 @@
 #'@S3method summary plant3d
 #'@rdname summary.plant3d
 #'@importFrom LeafAngle fitdistribution
-summary.plant3d <- function(object, nKErepeat=10, nsignif=3, calcSTARbar=FALSE, ...){
+summary.plant3d <- function(object, nKErepeat=10, nsignif=3, calcSTARbar=FALSE, calcpathlen=FALSE, ...){
 
 	plant <- object
     nleaves <- plant$nleaves
@@ -146,7 +147,7 @@ summary.plant3d <- function(object, nKErepeat=10, nsignif=3, calcSTARbar=FALSE, 
     
 	# Fit ellipsoidal distribution
 	if(nleaves > 3){
-		X <- fitdistribution(angs, "ellipsoid")$distpars
+		X <- LeafAngle::fitdistribution(angs, "ellipsoid")$distpars
 	} else {
 		X <- NA
   }
@@ -163,8 +164,9 @@ summary.plant3d <- function(object, nKErepeat=10, nsignif=3, calcSTARbar=FALSE, 
 		stemsurf <- 10^-6 * with(pdata, sum(D * pi * L) + sum(D.2 * pi * L.2))
 		stemvol <- 10^-9 * with(pdata, sum((D/2)^2 * pi *L) + sum((D.2/2)^2 * pi * L.2))
 		stembasediam <- pdata$D[1]
-		if(stembasediam == 0)stembasediam <- pdata$D[2]
-		if(nleaves >0){
+ 		if(stembasediam == 0)stembasediam <- pdata$D[2]
+     
+		if(calcpathlen && nleaves > 0){
 			path <- try(pathlen(plant), silent=TRUE)
 			if(inherits(path, "try-error")){
 				path <- data.frame(totlen=NA)

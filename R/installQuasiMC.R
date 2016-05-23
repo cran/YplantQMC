@@ -12,18 +12,14 @@
 #'
 #'This function can also be used to update an existing installation.
 #'
-#'
-#'@param proxy Use TRUE if connecting through a proxy. This invokes
-#'\code{setInternet2} - only works on Windows.
 #'@author QuasiMC by Mik Cieslak, R installation code by Remko Duursma.
 #'@references Cieslak, M., C. Lemieux, J. Hanan and P. Prusinkiewicz. 2008.
 #'Quasi-Monte Carlo simulation of the light environment of plants. Functional
 #'Plant Biology. 35:837-849.
 #'
-#'See also \url{http://www.remkoduursma/yplantqmc}
 #'@keywords misc
 #'@export
-installQuasiMC <- function(proxy=FALSE){
+installQuasiMC <- function(){
 
 	if(.Platform$OS.type == "windows"){
 		
@@ -31,14 +27,12 @@ installQuasiMC <- function(proxy=FALSE){
 			dir.create("c:/QuasiMC")
 			message("Created the directory : c:/QuasiMC")
 		}
-
-		if(proxy)utils::setInternet2(TRUE)
 		
 		if(file.exists("c:/quasimc/QuasiMC.zip")){
 			message("Updating existing QuasiMC installation.")
 			unlink("c:/quasimc/QuasiMC.zip")
 		}
-		download.file("http://www.remkoduursma.com/quasimc/QuasiMC.zip",
+		download.file("https://sites.google.com/site/remkoduursma/quasimc/QuasiMC.zip",
 			"c:/quasimc/QuasiMC.zip")
 		unzip("c:/quasimc/QuasiMC.zip", exdir="C:/quasimc")
 		message("'QuasiMC.exe' and 'enviro.e' have been placed in the folder 'c:/QuasiMC'.\n  !- Please do not rename or move!\n")

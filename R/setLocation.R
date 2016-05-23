@@ -32,7 +32,7 @@
 #'# Set a location from a map:
 #'somewhere <- setLocation()
 #'
-#'# Plot locations ('maps' package required)
+#'# Plot locations
 #'plot(sydney)
 #'}
 #'
@@ -48,17 +48,13 @@ setLocation <- function(lat=NA, long=0, tzlong=NA){
 	}
 	
 	if(is.na(lat)){
-	  r <- require(maps)
-	  if(!r) stop("Need to install package 'maps' to select location from a map.")
-	  maps::map('world')
+	  map('world')
 	  latlong <- locator(1)
 	  lat <- latlong$y
 	  long <- latlong$x
 	  tzlong <- long
 	  tzlongset <- FALSE
-	  message("Time of sunrise will be local apparent time.")
-	  message("Location successfully selected.")
-	  flush.console()
+	  message("Time of sunrise will be local apparent time.\nLocation successfully selected.")
 	}
   
 	l <- list()

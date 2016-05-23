@@ -70,7 +70,6 @@
 #'variables: a test using a diversity of small- to medium-sized woody plants.
 #'New Phytologist. 193:397-408.
 #'
-#'See also \url{http://www.remkoduursma/yplantqmc}
 #'@keywords misc
 #'@examples
 #'
